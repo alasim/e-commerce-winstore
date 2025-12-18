@@ -133,7 +133,7 @@ export function BestDeals() {
         <div className="container max-w-7xl mx-auto">
           <div className="mb-8 flex items-center justify-between gap-8">
             <h2 className="text-3xl whitespace-nowrap">
-              <span className="text-[#00bcd4]">Best</span> Deals
+              <span className="text-primary">Best</span> Deals
             </h2>
             <div className="flex items-center gap-8 justify-between">
               <div className="flex items-center gap-6 flex-1">
@@ -142,8 +142,8 @@ export function BestDeals() {
                     key={category.id}
                     onClick={() => setActiveCategory(category.name)}
                     className={`text-sm font-medium pb-2 border-b-2 transition-colors whitespace-nowrap ${activeCategory === category.name
-                      ? "text-[#00bcd4] border-[#00bcd4]"
-                      : "text-gray-600 border-transparent hover:text-[#00bcd4]"
+                      ? "text-primary border-primary"
+                      : "text-gray-600 border-transparent hover:text-primary"
                       }`}
                   >
                     {category.name}
@@ -173,7 +173,7 @@ export function BestDeals() {
       <div className="container max-w-7xl mx-auto">
         <div className="mb-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-8">
           <h2 className="text-3xl whitespace-nowrap">
-            <span className="text-[#00bcd4]">Best</span> Deals
+            <span className="text-cyan-400">Best</span> Deals
           </h2>
 
           <div className="flex items-center gap-4 lg:gap-8 justify-between w-full lg:w-auto">
@@ -184,8 +184,8 @@ export function BestDeals() {
                   key={category.id}
                   onClick={() => setActiveCategory(category.name)}
                   className={`text-sm font-medium pb-2 border-b-2 transition-colors whitespace-nowrap ${activeCategory === category.name
-                    ? "text-[#00bcd4] border-[#00bcd4]"
-                    : "text-gray-600 border-transparent hover:text-[#00bcd4]"
+                    ? "text-cyan-400 border-cyan-400"
+                    : "text-gray-600 border-transparent hover:text-cyan-400"
                     }`}
                 >
                   {category.name}

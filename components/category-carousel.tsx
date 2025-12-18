@@ -6,38 +6,6 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
-const categories = [
-  {
-    id: 1,
-    name: "Electronics",
-    image: "/electronics-store-display.png",
-  },
-  {
-    id: 2,
-    name: "Fashion",
-    image: "/fashion-clothing-store.png",
-  },
-  {
-    id: 3,
-    name: "Appliances",
-    image: "/modern-kitchen-appliances.png",
-  },
-  {
-    id: 4,
-    name: "Babies Store",
-    image: "/baby-products-store.png",
-  },
-  {
-    id: 5,
-    name: "Sports",
-    image: "/assorted-sports-gear.png",
-  },
-  {
-    id: 6,
-    name: "Home & Garden",
-    image: "/home-garden-furniture.jpg",
-  },
-]
 
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -132,7 +100,7 @@ export function CategoryCarousel() {
                           </div>
                           {/* Fold effect triangle at top */}
                           <div
-                            className="absolute -top-3 left-0 w-0 h-0 border-l-[18px] border-l-transparent border-b-[12px] border-b-[#220F0F]"
+                            className="absolute -top-3 left-0 w-0 h-0 border-l-18 border-l-transparent border-b-12 border-b-[#220F0F]"
                             style={{ filter: "brightness(0.7)" }}
                           />
 

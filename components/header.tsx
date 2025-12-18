@@ -66,15 +66,15 @@ export function Header() {
                         <div className="flex flex-col gap-4">
                           <div className="font-bold text-lg mb-2">Categories</div>
                           {categories.map((category) => (
-                            <Link key={category.id} href={`/category/${encodeURIComponent(category.name)}`} className="py-2 border-b hover:text-[#00bcd4]">
+                            <Link key={category.id} href={`/category/${encodeURIComponent(category.name)}`} className="py-2 border-b hover:text-cyan-400">
                               {category.name}
                             </Link>
                           ))}
                           <div className="font-bold text-lg mt-4 mb-2">Menu</div>
-                          <Link href="/" className="py-2 border-b hover:text-[#00bcd4]">Home</Link>
-                          <Link href="#" className="py-2 border-b hover:text-[#00bcd4]">Easy Monthly Installments</Link>
-                          <Link href="#" className="py-2 border-b hover:text-[#00bcd4]">Shop by Brands</Link>
-                          <Link href="#" className="py-2 border-b hover:text-[#00bcd4]">Become a Vendor</Link>
+                          <Link href="/" className="py-2 border-b hover:text-cyan-400">Home</Link>
+                          <Link href="#" className="py-2 border-b hover:text-cyan-400">Easy Monthly Installments</Link>
+                          <Link href="#" className="py-2 border-b hover:text-cyan-400">Shop by Brands</Link>
+                          <Link href="#" className="py-2 border-b hover:text-cyan-400">Become a Vendor</Link>
                         </div>
                       </SheetContent>
                     </Sheet>

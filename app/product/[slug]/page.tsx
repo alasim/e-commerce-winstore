@@ -134,9 +134,9 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
             <main className="container max-w-7xl mx-auto px-4 py-8">
                 {/* Breadcrumb */}
                 <div className="flex items-center text-sm text-gray-500 mb-8">
-                    <Link href="/" className="hover:text-[#00bcd4]">Home</Link>
+                    <Link href="/" className="hover:text-cyan-400">Home</Link>
                     <ChevronRight className="h-4 w-4 mx-2" />
-                    <Link href={`/category/${product.category}`} className="hover:text-[#00bcd4]">{product.category}</Link>
+                    <Link href={`/category/${product.category}`} className="hover:text-cyan-400">{product.category}</Link>
                     <ChevronRight className="h-4 w-4 mx-2" />
                     <span className="text-gray-900 font-medium truncate">{product.name}</span>
                 </div>
@@ -164,7 +164,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                                     <button
                                         key={index}
                                         onClick={() => setSelectedImage(index)}
-                                        className={`aspect-square relative border rounded-lg overflow-hidden bg-white flex items-center justify-center transition-all ${selectedImage === index ? "ring-2 ring-[#00bcd4] border-transparent" : "hover:border-[#00bcd4]"
+                                        className={`aspect-square relative border rounded-lg overflow-hidden bg-white flex items-center justify-center transition-all ${selectedImage === index ? "ring-2 ring-cyan-400 border-transparent" : "hover:border-cyan-400"
                                             }`}
                                     >
                                         <Image
@@ -194,10 +194,10 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                                     <span className="text-gray-600 text-sm ml-2">({product.ratingCount || 0} reviews)</span>
                                 </div>
                                 <Separator orientation="vertical" className="h-4" />
-                                <span className="text-[#00bcd4] text-sm font-medium">{product.available ? "In Stock" : "Out of Stock"}</span>
+                                <span className="text-cyan-400 text-sm font-medium">{product.available ? "In Stock" : "Out of Stock"}</span>
                             </div>
                             <div className="flex items-baseline gap-3">
-                                <span className="text-3xl font-bold text-[#00bcd4]">Rs.{product.price.toLocaleString()}</span>
+                                <span className="text-3xl font-bold text-cyan-400">Rs.{product.price.toLocaleString()}</span>
                                 {product.originalPrice && (
                                     <>
                                         <span className="text-lg text-gray-500 line-through">Rs.{product.originalPrice.toLocaleString()}</span>
@@ -217,7 +217,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                                 <ul className="space-y-2">
                                     {product.features.map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <div className="h-1.5 w-1.5 rounded-full bg-[#00bcd4] mr-2" />
+                                            <div className="h-1.5 w-1.5 rounded-full bg-cyan-400 mr-2" />
                                             {feature}
                                         </li>
                                     ))}
@@ -243,7 +243,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                                         <Plus className="h-4 w-4" />
                                     </button>
                                 </div>
-                                <Button className="flex-1 h-12 bg-[#00bcd4] hover:bg-[#00acc1] text-lg">
+                                <Button className="flex-1 h-12 bg-cyan-400 hover:bg-[#00acc1] text-lg">
                                     <ShoppingCart className="md:mr-2 h-5 w-5" />
                                     <span className="hidden md:block">Add to Cart</span>
                                 </Button>
@@ -263,12 +263,12 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                             </div>
                             <div className="flex gap-2">
                                 <span className="font-medium text-gray-900">Category:</span>
-                                <Link href={`/category/${product.category}`} className="text-[#00bcd4] hover:underline">{product.category}</Link>
+                                <Link href={`/category/${product.category}`} className="text-cyan-400 hover:underline">{product.category}</Link>
                             </div>
                             {product.brand && (
                                 <div className="flex gap-2">
                                     <span className="font-medium text-gray-900">Brand:</span>
-                                    <Link href="#" className="text-[#00bcd4] hover:underline">{product.brand}</Link>
+                                    <Link href="#" className="text-cyan-400 hover:underline">{product.brand}</Link>
                                 </div>
                             )}
                         </div>
@@ -281,19 +281,19 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                         <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent">
                             <TabsTrigger
                                 value="description"
-                                className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#00bcd4] data-[state=active]:text-[#00bcd4] px-8 py-3 text-base"
+                                className="rounded-none border-b-2 border-transparent data-[state=active]:border-cyan-400 data-[state=active]:text-cyan-400 px-8 py-3 text-base"
                             >
                                 Description
                             </TabsTrigger>
                             <TabsTrigger
                                 value="reviews"
-                                className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#00bcd4] data-[state=active]:text-[#00bcd4] px-8 py-3 text-base"
+                                className="rounded-none border-b-2 border-transparent data-[state=active]:border-cyan-400 data-[state=active]:text-cyan-400 px-8 py-3 text-base"
                             >
                                 Reviews ({product.ratingCount || 0})
                             </TabsTrigger>
                             <TabsTrigger
                                 value="shipping"
-                                className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#00bcd4] data-[state=active]:text-[#00bcd4] px-8 py-3 text-base"
+                                className="rounded-none border-b-2 border-transparent data-[state=active]:border-cyan-400 data-[state=active]:text-cyan-400 px-8 py-3 text-base"
                             >
                                 Shipping & Returns
                             </TabsTrigger>

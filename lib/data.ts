@@ -94,7 +94,7 @@ export const products: Product[] = [
         discount: 10,
         sold: 6,
         available: 30,
-        badgeColor: "bg-[#00bcd4]",
+        badgeColor: "bg-cyan-400",
     },
     {
         id: 7,
@@ -181,7 +181,7 @@ export const products: Product[] = [
         discount: 10,
         sold: 5,
         available: 15,
-        badgeColor: "bg-[#00bcd4]",
+        badgeColor: "bg-cyan-400",
     },
 
     // Grocery

@@ -38,14 +38,14 @@ export function Footer() {
             </div>
 
             <div className="space-y-2 text-sm">
-              <p className="text-[#00bcd4]">Got questions? Call us 24/7!</p>
+              <p className="text-cyan-400">Got questions? Call us 24/7!</p>
               <div>
                 <p className="text-lg  text-white">03 111 666 144</p>
                 <p className="text-lg  text-white">0317 1771015</p>
               </div>
             </div>
             <div className="space-y-2 text-sm">
-              <p className="text-[#00bcd4]">Contact Info</p>
+              <p className="text-cyan-400">Contact Info</p>
               <p className="text-white/80">info@winstore.pk</p>
             </div>
             <div className="flex items-center gap-6">
@@ -66,7 +66,7 @@ export function Footer() {
 
           {/* Trending */}
           <div className="space-y-4 col-span-2">
-            <h3 className="text-[#00bcd4]">Trending</h3>
+            <h3 className="text-cyan-400">Trending</h3>
             <ul className="space-y-2 text-sm text-white/80">
               {categories.slice(0, 6).map((category) => (
                 <li key={category.id}>
@@ -82,7 +82,7 @@ export function Footer() {
 
           {/* Information */}
           <div className="space-y-4 col-span-2">
-            <h3 className="text-[#00bcd4]">Information</h3>
+            <h3 className="text-cyan-400">Information</h3>
             <ul className="space-y-2 text-sm text-white/80">
               <li>
                 <Button variant="link" className="h-auto p-0 text-white/80">
@@ -119,7 +119,7 @@ export function Footer() {
 
           {/* Customer Care */}
           <div className="space-y-4 col-span-2">
-            <h3 className="text-[#00bcd4]">Customer Care</h3>
+            <h3 className="text-cyan-400">Customer Care</h3>
             <ul className="space-y-2 text-sm text-white/80">
               <li>
                 <Button variant="link" className="h-auto p-0 text-white/80">

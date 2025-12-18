@@ -41,7 +41,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                 <div className="container max-w-7xl mx-auto">
                     <div className="mb-8">
                         <h2 className="text-3xl whitespace-nowrap capitalize">
-                            <span className="text-[#00bcd4]">{decodedCategory}</span> Products
+                            <span className="text-cyan-400">{decodedCategory}</span> Products
                         </h2>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -73,7 +73,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                 <div className="container max-w-7xl mx-auto">
                     <div className="mb-8">
                         <h2 className="text-3xl whitespace-nowrap capitalize">
-                            <span className="text-[#00bcd4]">{decodedCategory}</span> Products
+                            <span className="text-cyan-400">{decodedCategory}</span> Products
                         </h2>
                     </div>
                     <div className="flex items-center justify-center h-64 border">
@@ -89,7 +89,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
             <div className="container max-w-7xl mx-auto">
                 <div className="mb-8">
                     <h2 className="text-3xl whitespace-nowrap capitalize">
-                        <span className="text-[#00bcd4]">{decodedCategory}</span> Products
+                        <span className="text-cyan-400">{decodedCategory}</span> Products
                     </h2>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -101,7 +101,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                                     <p className="text-sm text-gray-900">{product.brand || "Brand"}</p>
 
                                     {/* Product name */}
-                                    <h3 className="text-lg font-normal text-[#034E53] line-clamp-2 min-h-14 group-hover:text-[#00bcd4] transition-colors">{product.name}</h3>
+                                    <h3 className="text-lg font-normal text-[#034E53] line-clamp-2 min-h-14 group-hover:text-cyan-400 transition-colors">{product.name}</h3>
 
                                     {/* Product image */}
                                     <div className="aspect-square bg-white rounded flex items-center justify-center">

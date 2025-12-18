@@ -40,7 +40,7 @@ export function NewArrivals() {
         <div className="container max-w-7xl mx-auto px-4">
           <div className="mb-8">
             <h2 className="text-3xl whitespace-nowrap">
-              <span className="text-[#00bcd4]">New</span> Arrivals
+              <span className="text-primary">New</span> Arrivals
             </h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -75,7 +75,7 @@ export function NewArrivals() {
       <div className="container max-w-7xl mx-auto">
         <div className="mb-8">
           <h2 className="text-3xl whitespace-nowrap">
-            <span className="text-[#00bcd4]">New</span> Arrivals
+            <span className="text-cyan-400">New</span> Arrivals
           </h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -87,7 +87,7 @@ export function NewArrivals() {
                   <p className="text-sm text-gray-900">{product.brand || "Brand"}</p>
 
                   {/* Product name */}
-                  <h3 className="text-lg font-normal text-[#034E53] line-clamp-2 min-h-14 group-hover:text-[#00bcd4] transition-colors">{product.name}</h3>
+                  <h3 className="text-lg font-normal text-[#034E53] line-clamp-2 min-h-14 group-hover:text-cyan-400 transition-colors">{product.name}</h3>
 
                   {/* Product image */}
                   <div className="aspect-square rounded flex items-center justify-center">
