@@ -33,6 +33,21 @@ export function BestDeals() {
   const [activeCategory, setActiveCategory] = useState<string>("")
   const [categoryStartIndex, setCategoryStartIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
+  const [visibleCount, setVisibleCount] = useState(4)
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setVisibleCount(3)
+      } else {
+        setVisibleCount(4)
+      }
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     async function fetchData() {
@@ -43,12 +58,19 @@ export function BestDeals() {
         ])
 
         const catData = await catRes.json()
-        const prodData = await prodRes.json()
+        const prodData: Product[] = await prodRes.json()
 
-        setCategories(catData)
+        // Sort categories by product count (descending)
+        const sortedCategories = [...catData].sort((a, b) => {
+          const countA = prodData.filter(p => p.category === a.name).length
+          const countB = prodData.filter(p => p.category === b.name).length
+          return countB - countA
+        })
+
+        setCategories(sortedCategories)
         setProducts(prodData)
-        if (catData.length > 0) {
-          setActiveCategory(catData[0].name)
+        if (sortedCategories.length > 0) {
+          setActiveCategory(sortedCategories[0].name)
         }
       } catch (error) {
         console.error("Failed to fetch data", error)
@@ -59,10 +81,10 @@ export function BestDeals() {
     fetchData()
   }, [])
 
-  const visibleCategories = categories.slice(categoryStartIndex, categoryStartIndex + 4)
+  const visibleCategories = categories.slice(categoryStartIndex, categoryStartIndex + visibleCount)
 
   const handleNextCategories = () => {
-    if (categoryStartIndex + 4 < categories.length) {
+    if (categoryStartIndex + visibleCount < categories.length) {
       setCategoryStartIndex(prev => prev + 1)
     }
   }
@@ -78,7 +100,7 @@ export function BestDeals() {
   if (isLoading) {
     return (
       <section className="py-16 bg-white">
-        <div className="container max-w-7xl mx-auto">
+        <div className="container max-w-7xl mx-auto px-4">
           <div className="mb-8 flex items-center justify-between gap-8">
             <Skeleton className="h-10 w-48" />
             <div className="flex items-center gap-8 justify-between flex-1">
@@ -147,16 +169,16 @@ export function BestDeals() {
   }
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-8 lg:py-16 bg-white">
       <div className="container max-w-7xl mx-auto">
-        <div className="mb-8 flex items-center justify-between gap-8">
+        <div className="mb-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-8">
           <h2 className="text-3xl whitespace-nowrap">
             <span className="text-[#00bcd4]">Best</span> Deals
           </h2>
 
-          <div className="flex items-center gap-8 justify-between">
+          <div className="flex items-center gap-4 lg:gap-8 justify-between w-full lg:w-auto">
             {/* Categories */}
-            <div className="flex items-center gap-6 flex-1">
+            <div className="flex items-center gap-6 flex-1 overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
               {visibleCategories.map((category) => (
                 <button
                   key={category.id}
@@ -172,7 +194,7 @@ export function BestDeals() {
             </div>
 
             {/* Navigation arrows */}
-            <div className="flex gap-2">
+            <div className="flex gap-2 shrink-0">
               <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handlePrevCategories} disabled={categoryStartIndex === 0}>
                 <ChevronLeft className="h-5 w-5" />
               </Button>
@@ -183,13 +205,12 @@ export function BestDeals() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 grid-rows-2 gap-6 h-[590px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-6 h-auto lg:h-[590px]">
           {/* Item 1: Column 1, Row 1 */}
           {filteredProducts[0] && (
             <Link
               href={`/product/${filteredProducts[0].id}`}
-              className="relative grid grid-cols-2 p-4 grid-rows-2 h-full border overflow-hidden hover:shadow-lg transition-shadow bg-white"
-              style={{ gridColumn: "1", gridRow: "1" }}
+              className="relative grid grid-cols-2 p-4 grid-rows-2 h-[280px] lg:h-full border overflow-hidden hover:shadow-lg transition-shadow bg-white lg:col-start-1 lg:row-start-1"
             >
               <div className="flex flex-col">
                 <div className="mb-2">
@@ -236,14 +257,13 @@ export function BestDeals() {
           {filteredProducts[1] && (
             <Link
               href={`/product/${filteredProducts[1].id}`}
-              className="relative border overflow-hidden flex flex-col hover:shadow-lg transition-shadow bg-white p-4"
-              style={{ gridColumn: "2", gridRow: "1 / 3" }}
+              className="relative border overflow-hidden flex flex-col hover:shadow-lg transition-shadow bg-white p-4 h-[400px] lg:h-full lg:col-start-2 lg:row-start-1 lg:row-span-2"
             >
               <div className="relative flex-1">
                 <div className="absolute top-0 -right-4 z-10">
                   <div className="flex justify-center">
                     {filteredProducts[1].discount && (
-                      <div className={cn("h-36 w-36 text-4xl text-center text-white rounded-full flex items-center justify-center", filteredProducts[1].badgeColor || "bg-gray-400")}>
+                      <div className={cn("h-24 w-24 lg:h-36 lg:w-36 text-xl lg:text-4xl text-center text-white rounded-full flex items-center justify-center", filteredProducts[1].badgeColor || "bg-gray-400")}>
                         <span>Save <br />{filteredProducts[1].discount}%</span>
                       </div>
                     )}
@@ -256,7 +276,7 @@ export function BestDeals() {
 
                 </div>
 
-                <div className="relative w-full h-full scale-110">
+                <div className="relative w-full lg:h-full h-[250px] scale-100 lg:scale-110">
                   <Image
                     src={filteredProducts[1].image || "/placeholder.svg"}
                     alt={filteredProducts[1].name}
@@ -292,8 +312,7 @@ export function BestDeals() {
           {filteredProducts[2] && (
             <Link
               href={`/product/${filteredProducts[2].id}`}
-              className="relative grid grid-cols-2 p-4 grid-rows-2 h-full border overflow-hidden hover:shadow-lg transition-shadow bg-white"
-              style={{ gridColumn: "3", gridRow: "1" }}
+              className="relative grid grid-cols-2 p-4 grid-rows-2 h-[280px] lg:h-full border overflow-hidden hover:shadow-lg transition-shadow bg-white lg:col-start-3 lg:row-start-1"
             >
               <div className="flex flex-col">
                 <div className="mb-2">
@@ -341,8 +360,7 @@ export function BestDeals() {
           {filteredProducts[3] && (
             <Link
               href={`/product/${filteredProducts[3].id}`}
-              className="relative grid grid-cols-2 grid-rows-2 border overflow-hidden hover:shadow-lg transition-shadow bg-white p-4"
-              style={{ gridColumn: "1", gridRow: "2" }}
+              className="relative grid grid-cols-2 grid-rows-2 border overflow-hidden hover:shadow-lg transition-shadow bg-white p-4 h-[280px] lg:h-full lg:col-start-1 lg:row-start-2"
             >
               <div className="row-span-2">
                 <div className="">
@@ -387,8 +405,7 @@ export function BestDeals() {
           {filteredProducts[4] && (
             <Link
               href={`/product/${filteredProducts[4].id}`}
-              className="relative border overflow-hidden flex flex-col hover:shadow-lg transition-shadow bg-white p-4"
-              style={{ gridColumn: "3", gridRow: "2" }}
+              className="relative border overflow-hidden flex flex-col hover:shadow-lg transition-shadow bg-white p-4 h-[280px] lg:h-full lg:col-start-3 lg:row-start-2"
             >
               <div className="relative flex-1">
                 <div className="absolute top-0 -right-4 z-10">

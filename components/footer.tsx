@@ -174,7 +174,7 @@ export function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/10 bg-[#263749]">
+      <div className="border-t border-white/10 bg-[#161616]">
         <div className="container py-6 max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/70">
             <p>© {new Date().getFullYear()} Winstore. All Rights Reserved.</p>

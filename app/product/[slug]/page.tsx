@@ -12,7 +12,6 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 interface Product {
     id: number
@@ -228,7 +227,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
 
                         <div className="space-y-4 pt-4">
                             <div className="flex items-center gap-4">
-                                <div className="flex items-center border rounded-md">
+                                <div className="flex items-center h-12 border rounded-md">
                                     <button
                                         onClick={decrementQuantity}
                                         className="p-3 hover:bg-gray-100 transition-colors"
@@ -245,8 +244,8 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                                     </button>
                                 </div>
                                 <Button className="flex-1 h-12 bg-[#00bcd4] hover:bg-[#00acc1] text-lg">
-                                    <ShoppingCart className="mr-2 h-5 w-5" />
-                                    Add to Cart
+                                    <ShoppingCart className="md:mr-2 h-5 w-5" />
+                                    <span className="hidden md:block">Add to Cart</span>
                                 </Button>
                                 <Button variant="outline" size="icon" className="h-12 w-12">
                                     <Heart className="h-5 w-5" />
@@ -277,7 +276,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                 </div>
 
                 {/* Product Tabs */}
-                <div className="mb-16">
+                {/* <div className="mb-16">
                     <Tabs defaultValue="description" className="w-full">
                         <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent">
                             <TabsTrigger
@@ -317,7 +316,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                             </div>
                         </TabsContent>
                     </Tabs>
-                </div>
+                </div> */}
                 {/* Related Products */}
                 <div className="mb-16">
                     <NewArrivals />

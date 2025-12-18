@@ -66,47 +66,30 @@ export function HeroCarousel() {
           <CarouselContent>
             {heroSlides.map((slide) => (
               <CarouselItem key={slide.id}>
-                <div className={cn(`flex items-center h-[320px] relative`)} >
+                <div className={cn(`flex items-center lg:h-[320px] h-[480px] relative`)} >
                   {/* Background Image */}
                   <Image src={slide.image} alt={slide.title} fill className="object-cover object-right absolute inset-0" />
                   {/* Content */}
-                  <div className="container max-w-7xl mx-auto relative">
+                  <div className="container max-w-7xl mx-auto relative px-4">
                     <div className="">
-                      <h1 className="text-6xl text-balance leading-tight">
+                      <h1 className="text-3xl lg:text-6xl text-balance leading-tight">
                         Shop <span className="text-[#00bcd4]">Computer</span>
                       </h1>
-                      <h2 className="text-5xl text-[#00bcd4] text-balance">& experience</h2>
+                      <h2 className="text-2xl lg:text-5xl text-[#00bcd4] text-balance font-medium">& experience</h2>
                     </div>
-                    <p className="text-gray-700 max-w-sm text-sm leading-relaxed pb-4">{slide.description}</p>
-                    <Button size="lg" className="bg-[#00bcd4] hover:bg-[#00acc1] text-white font-semibold px-8">
+                    <p className="text-gray-700 max-w-[250px] lg:max-w-sm text-xs lg:text-sm leading-relaxed pb-4 mt-2">{slide.description}</p>
+                    <Button size="lg" className="bg-[#00bcd4] hover:bg-[#00acc1] text-white font-semibold px-6 lg:px-8 h-10 lg:h-11 text-sm lg:text-base">
                       View More
                     </Button>
 
                     {/* Discount */}
-                    {slide.discount && <div className="absolute top-4 right-8 flex h-40 w-40 items-center justify-center rounded-full bg-linear-to-r from-[#FDC830] to-[#F37335] text-white">
-                      <div className="text-center text-5xl space-y-1">
+                    {slide.discount && <div className="absolute top-4 right-4 lg:right-8 flex h-24 w-24 lg:h-40 lg:w-40 items-center justify-center rounded-full bg-linear-to-r from-[#FDC830] to-[#F37335] text-white shadow-lg">
+                      <div className="text-center space-y-0 lg:space-y-1 text-2xl lg:text-5xl">
                         <div className="">{slide.discount}</div>
                         <div className="">Off</div>
                       </div>
                     </div>}
                   </div>
-
-                  {/* Image */}
-                  {/* <div className="flex-1 relative">
-                    <div className="relative flex items-center justify-center">
-                      <img
-                        src={slide.image || "/placeholder.svg?height=400&width=600"}
-                        alt={slide.title}
-                        className="w-full max-w-[600px] h-auto object-contain"
-                      />
-                      <div className="absolute top-4 right-8 flex h-36 w-36 items-center justify-center rounded-full bg-[#ff9800] text-white shadow-2xl">
-                        <div className="text-center">
-                          <div className="text-5xl font-bold">{slide.discount}</div>
-                          <div className="text-2xl font-semibold">Off</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
               </CarouselItem>
             ))}

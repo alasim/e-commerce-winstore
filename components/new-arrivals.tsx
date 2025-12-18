@@ -37,7 +37,7 @@ export function NewArrivals() {
   if (isLoading) {
     return (
       <section className="py-12">
-        <div className="container max-w-7xl mx-auto">
+        <div className="container max-w-7xl mx-auto px-4">
           <div className="mb-8">
             <h2 className="text-3xl whitespace-nowrap">
               <span className="text-[#00bcd4]">New</span> Arrivals

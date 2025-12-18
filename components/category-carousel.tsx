@@ -93,7 +93,7 @@ export function CategoryCarousel() {
 
   return (
     <section className="py-4 bg-linear-to-b from-[#F3EDC9] via-white to-white ">
-      <div className="container max-w-7xl mx-auto">
+      <div className="container max-w-7xl mx-auto px-16 xl:px-0">
         <Carousel
           opts={{
             align: "start",
@@ -117,14 +117,7 @@ export function CategoryCarousel() {
                         />
 
                       </div>
-                      {/* <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" /> */}
-                      {/* <div className="absolute folded-corner pl-8 shadow-[-4px_11px_22px_2px_rgba(0,0,0,0.35)] h-12 bg-white left-0 bottom-4 flex items-center w-[calc(100%-16px)]">
-                        <h3 className="text-xl font-semibold">{category.name}</h3>
-                        <Button variant={'ghost'} size="sm">
-                          Shop
-                        </Button>
-                      </div> */}
-                      <div className="absolute bottom-4 left-0 shadow-[-1px_1px_7px_0px_rgba(0,_0,_0,_0.57)] w-[calc(100%-16px)]">
+                      <div className="absolute bottom-4 left-0 shadow-[-1px_1px_7px_0px_rgba(0,0,0,0.57)] w-[calc(100%-16px)]">
                         <div className="relative bg-linear-to-r from-white to-white/95 pl-6 py-3 shadow-md">
                           <div className="flex pr-4 items-center gap-3 justify-between">
                             <h3 className="text-xl text-gray-900">{category.name}</h3>

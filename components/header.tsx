@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, Search } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -41,20 +42,49 @@ export function Header() {
     <header className="text-white sticky top-0 z-50">
       {/* Top Bar */}
       <div className="bg-[#03484D]">
-        <div className="container max-w-7xl mx-auto h-[68px] flex items-center justify-between py-2 text-sm">
+        <div className="container max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between py-2 text-sm">
           <div className="py-4 container max-w-7xl mx-auto">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-10">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-0">
+              <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-10 w-full lg:w-auto">
 
-                {/* Logo */}
-                <Link href="/" className="flex items-center">
-                  <Image src="/logo.svg" alt="Logo" width={132} height={48} />
-                </Link>
+                <div className="flex items-center justify-between w-full lg:w-auto">
+                  {/* Logo */}
+                  <Link href="/" className="flex items-center">
+                    <Image src="/logo.svg" alt="Logo" width={132} height={48} />
+                  </Link>
+
+                  {/* Mobile Menu Trigger */}
+                  <div className="lg:hidden">
+                    <Sheet>
+                      <SheetTrigger asChild>
+                        <Button variant="ghost" size="icon" className="text-white">
+                          <Menu className="h-6 w-6" />
+                        </Button>
+                      </SheetTrigger>
+                      <SheetContent side="left" className="bg-white text-black w-[300px] px-4">
+                        {/* <SheetTitle className="text-left mb-4">Menu</SheetTitle> */}
+                        <div className="flex flex-col gap-4">
+                          <div className="font-bold text-lg mb-2">Categories</div>
+                          {categories.map((category) => (
+                            <Link key={category.id} href={`/category/${encodeURIComponent(category.name)}`} className="py-2 border-b hover:text-[#00bcd4]">
+                              {category.name}
+                            </Link>
+                          ))}
+                          <div className="font-bold text-lg mt-4 mb-2">Menu</div>
+                          <Link href="/" className="py-2 border-b hover:text-[#00bcd4]">Home</Link>
+                          <Link href="#" className="py-2 border-b hover:text-[#00bcd4]">Easy Monthly Installments</Link>
+                          <Link href="#" className="py-2 border-b hover:text-[#00bcd4]">Shop by Brands</Link>
+                          <Link href="#" className="py-2 border-b hover:text-[#00bcd4]">Become a Vendor</Link>
+                        </div>
+                      </SheetContent>
+                    </Sheet>
+                  </div>
+                </div>
 
                 {/* Search Bar */}
-                <div className="flex flex-1 items-center w-[535px] h-10">
+                <div className="flex w-full lg:w-[535px] h-10">
                   <Select defaultValue="all">
-                    <SelectTrigger className="w-[180px] h-full! bg-white text-[#ABA3A3] rounded-r-none">
+                    <SelectTrigger className="w-[140px] lg:w-[180px] h-full! bg-white text-[#ABA3A3] rounded-r-none border-r">
                       <SelectValue placeholder="All categories" className="" />
                     </SelectTrigger>
                     <SelectContent>
@@ -73,9 +103,9 @@ export function Header() {
                 </div>
               </div>
 
-              <div className="flex gap-10">
-                {/* Call Us Now */}
-                <div className="flex gap-1 flex-col shrink-0">
+              <div className="flex items-center justify-between w-full lg:w-auto gap-4 lg:gap-10 mt-4 lg:mt-0">
+                {/* Call Us Now - Hidden on mobile */}
+                <div className="hidden lg:flex gap-1 flex-col shrink-0">
                   <span className="text-[9px]">Call Us Now</span>
                   <div className="flex items-center gap-2">
                     <Image src="/icons/headphones.svg" alt="Headphones" width={20} height={20} />
@@ -89,7 +119,7 @@ export function Header() {
                 </Button>
 
                 {/* Cart */}
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-4 lg:gap-6">
                   <Button variant="ghost" size="icon" className="text-white hover:text-cyan-400 hover:bg-transparent">
                     <Image src="/icons/user.svg" alt="User" width={20} height={20} />
                   </Button>
@@ -107,7 +137,7 @@ export function Header() {
                       </span>
                     </div>
 
-                    <span className="">Cart</span>
+                    <span className="hidden lg:inline">Cart</span>
                   </Button>
                 </div>
               </div>
@@ -121,8 +151,8 @@ export function Header() {
         
       </div> */}
 
-      {/* Navigation */}
-      <div className="bg-[#163e4d]">
+      {/* Navigation - Hidden on Mobile */}
+      <div className="bg-[#163e4d] md:block hidden">
         <div className="container max-w-7xl mx-auto">
           <nav className="flex items-center justify-between py-3">
             <div className="flex items-center gap-6 text-sm">
