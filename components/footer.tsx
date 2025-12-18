@@ -28,49 +28,52 @@ export function Footer() {
 
   return (
     <footer className="bg-[#393939] text-white mt-12">
-      <div className="container py-12 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-9 gap-4">
+      <div className="container py-12 max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-9 gap-8 lg:gap-4">
           {/* Logo and Contact */}
-          <div className="space-y-4 col-span-3">
-
-            <div className="flex items-center">
+          <div className="space-y-6 md:col-span-2 lg:col-span-3">
+            <div className="flex items-center justify-start">
               <Image src="/logo.svg" alt="Logo" width={132} height={48} />
             </div>
 
-            <div className="space-y-2 text-sm">
-              <p className="text-cyan-400">Got questions? Call us 24/7!</p>
-              <div>
-                <p className="text-lg  text-white">03 111 666 144</p>
-                <p className="text-lg  text-white">0317 1771015</p>
+            <div className="space-y-4 text-sm">
+              <div className="space-y-1">
+                <p className="text-cyan-400 font-medium">Got questions? Call us 24/7!</p>
+                <div className="space-y-1">
+                  <p className="text-xl font-semibold text-white">03 111 666 144</p>
+                  <p className="text-xl font-semibold text-white">0317 1771015</p>
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <p className="text-cyan-400 font-medium">Contact Info</p>
+                <p className="text-white/80">info@winstore.pk</p>
               </div>
             </div>
-            <div className="space-y-2 text-sm">
-              <p className="text-cyan-400">Contact Info</p>
-              <p className="text-white/80">info@winstore.pk</p>
-            </div>
-            <div className="flex items-center gap-6">
-              <Link href="https://www.facebook.com/">
-                <Image src="/icons/facebook.svg" className="h-4 w-4" alt="Facebook" width={20} height={20} />
+
+            <div className="flex items-center gap-4">
+              <Link href="https://www.facebook.com/" className="hover:opacity-80 transition-opacity">
+                <Image src="/icons/facebook.svg" className="h-5 w-5" alt="Facebook" width={20} height={20} />
               </Link>
-              <Link href="https://www.x.com/">
-                <Image src="/icons/x.svg" className="h-4 w-4" alt="Twitter" width={20} height={20} />
+              <Link href="https://www.x.com/" className="hover:opacity-80 transition-opacity">
+                <Image src="/icons/x.svg" className="h-5 w-5" alt="Twitter" width={20} height={20} />
               </Link>
-              <Link href="https://www.linkedin.com/">
-                <Image src="/icons/linkedin.svg" className="h-4 w-4" alt="Linkedin" width={20} height={20} />
+              <Link href="https://www.linkedin.com/" className="hover:opacity-80 transition-opacity">
+                <Image src="/icons/linkedin.svg" className="h-5 w-5" alt="Linkedin" width={20} height={20} />
               </Link>
-              <Link href="https://www.instagram.com/">
-                <Image src="/icons/instagram.svg" className="h-4 w-4" alt="Instagram" width={20} height={20} />
+              <Link href="https://www.instagram.com/" className="hover:opacity-80 transition-opacity">
+                <Image src="/icons/instagram.svg" className="h-5 w-5" alt="Instagram" width={20} height={20} />
               </Link>
             </div>
           </div>
 
           {/* Trending */}
-          <div className="space-y-4 col-span-2">
-            <h3 className="text-cyan-400">Trending</h3>
+          <div className="space-y-4 lg:col-span-2">
+            <h3 className="text-cyan-400 font-semibold border-b border-white/10 pb-2 md:border-0 md:pb-0">Trending</h3>
             <ul className="space-y-2 text-sm text-white/80">
               {categories.slice(0, 6).map((category) => (
                 <li key={category.id}>
-                  <Button variant="link" className="h-auto p-0 text-white/80" asChild>
+                  <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400 text-left" asChild>
                     <Link href={`/category/${encodeURIComponent(category.name)}`}>
                       {category.name}
                     </Link>
@@ -81,36 +84,36 @@ export function Footer() {
           </div>
 
           {/* Information */}
-          <div className="space-y-4 col-span-2">
-            <h3 className="text-cyan-400">Information</h3>
+          <div className="space-y-4 lg:col-span-2">
+            <h3 className="text-cyan-400 font-semibold border-b border-white/10 pb-2 md:border-0 md:pb-0">Information</h3>
             <ul className="space-y-2 text-sm text-white/80">
               <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
+                <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400">
                   About Us
                 </Button>
               </li>
               <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
+                <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400">
                   Contact Us
                 </Button>
               </li>
               <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
+                <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400">
                   FAQs
                 </Button>
               </li>
               <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
+                <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400">
                   Shipping & Return
                 </Button>
               </li>
               <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
+                <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400">
                   Privacy policy
                 </Button>
               </li>
               <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
+                <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400">
                   Terms & Conditions
                 </Button>
               </li>
@@ -118,36 +121,36 @@ export function Footer() {
           </div>
 
           {/* Customer Care */}
-          <div className="space-y-4 col-span-2">
-            <h3 className="text-cyan-400">Customer Care</h3>
+          <div className="space-y-4 lg:col-span-2">
+            <h3 className="text-cyan-400 font-semibold border-b border-white/10 pb-2 md:border-0 md:pb-0">Customer Care</h3>
             <ul className="space-y-2 text-sm text-white/80">
               <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
+                <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400">
                   My Account
                 </Button>
               </li>
               <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
+                <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400">
                   Track Your Order
                 </Button>
               </li>
               <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
+                <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400">
                   Recently Viewed
                 </Button>
               </li>
               <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
+                <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400">
                   Wishlist
                 </Button>
               </li>
               <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
+                <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400">
                   Compare
                 </Button>
               </li>
               <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
+                <Button variant="link" className="h-auto p-0 text-white/80 hover:text-cyan-400">
                   Become a Vendor
                 </Button>
               </li>
@@ -155,22 +158,27 @@ export function Footer() {
           </div>
 
           {/* Payment Methods */}
-          <div className="gap-2 grid grid-cols-4 h-[60px] max-h-[60px] col-start-6 col-end-9">
-            <div className="relative w-full h-full bg-white rounded">
-              <Image src="/images/visa.png" layout="fill" alt="Visa" className="w-full  h-full p-2 object-contain" />
-            </div>
-            <div className="relative w-full h-full bg-white rounded">
-              <Image src="/images/master-card.png" layout="fill" alt="Mastercard" className="w-full h-full p-2 object-contain" />
-            </div>
-            <div className="relative w-full h-full bg-white rounded">
-              <Image src="/images/cash.png" layout="fill" alt="Cash" className="w-full h-full p-2 object-contain" />
-            </div>
-            <div className="relative bg-white rounded">
-              <Image src="/images/easy-plan.png" layout="fill" alt="Payment" className="w-full h-full p-2 object-contain" />
+          {/* Payment Methods */}
+          <div className="col-span-full md:col-span-1 lg:col-start-6 lg:col-span-4 mt-4 lg:mt-0">
+            <div className="grid grid-cols-4 gap-2 sm:gap-3">
+              {[
+                { src: "/images/visa.png", alt: "Visa" },
+                { src: "/images/master-card.png", alt: "Mastercard" },
+                { src: "/images/cash.png", alt: "Cash" },
+                { src: "/images/easy-plan.png", alt: "Payment" }
+              ].map((payment, idx) => (
+                <div key={idx} className="relative aspect-3/2 bg-white rounded-md overflow-hidden p-1 shadow-sm">
+                  <Image
+                    src={payment.src}
+                    fill
+                    alt={payment.alt}
+                    className="object-contain p-2"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
-
       </div>
 
       {/* Bottom Bar */}
