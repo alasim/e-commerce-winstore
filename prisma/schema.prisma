@@ -43,14 +43,3 @@ model Category {
   image    String
   products Product[]
 }
-
-model HeroSlide {
-  id          Int      @id @default(autoincrement())
-  title       String
-  subtitle    String?
-  description String
-  discount    String?
-  image       String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}

@@ -43,7 +43,7 @@ export function NewArrivals() {
               <span className="text-primary">New</span> Arrivals
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {Array.from({ length: 5 }).map((_, i) => (
               <div key={i} className="overflow-hidden border">
                 <div className="p-6 space-y-4">
@@ -78,7 +78,7 @@ export function NewArrivals() {
             <span className="text-primary">New</span> Arrivals
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {products.map((product) => (
             <div key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow border group">
               <Link href={`/product/${product.id}`} className="block h-full">
