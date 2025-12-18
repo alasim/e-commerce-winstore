@@ -1,0 +1,117 @@
+"use client"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/carousel"
+import Image from "next/image"
+import React from "react"
+
+const categories = [
+  {
+    id: 1,
+    name: "Electronics",
+    image: "/electronics-store-display.png",
+  },
+  {
+    id: 2,
+    name: "Fashion",
+    image: "/fashion-clothing-store.png",
+  },
+  {
+    id: 3,
+    name: "Appliances",
+    image: "/modern-kitchen-appliances.png",
+  },
+  {
+    id: 4,
+    name: "Babies Store",
+    image: "/baby-products-store.png",
+  },
+  {
+    id: 5,
+    name: "Sports",
+    image: "/assorted-sports-gear.png",
+  },
+  {
+    id: 6,
+    name: "Home & Garden",
+    image: "/home-garden-furniture.jpg",
+  },
+]
+
+export function CategoryCarousel() {
+  const [api, setApi] = React.useState<CarouselApi>()
+  const scrollPrev = React.useCallback(() => {
+    if (api) api.scrollPrev()
+  }, [api])
+
+  const scrollNext = React.useCallback(() => {
+    if (api) api.scrollNext()
+  }, [api])
+  return (
+    <section className="py-4 bg-linear-to-b from-[#F3EDC9] via-white to-white ">
+      <div className="container max-w-7xl mx-auto">
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full"
+          setApi={setApi}
+        >
+
+          <CarouselContent className="-ml-4">
+            {categories.map((category) => (
+              <CarouselItem key={category.id} className="pl-4 md:basis-1/2 lg:basis-1/4">
+                <Card className="p-0 bg-transparent border-none shadow-none rounded-none cursor-pointer">
+                  <div className="relative h-52 pl-4">
+                    <div className="w-full h-full border-2 border-white">
+                      <img
+                        src={category.image || "/placeholder.svg?height=256&width=400"}
+                        alt={category.name}
+                        className="w-full h-full object-cover relative"
+                      />
+
+                    </div>
+                    {/* <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" /> */}
+                    {/* <div className="absolute folded-corner pl-8 shadow-[-4px_11px_22px_2px_rgba(0,0,0,0.35)] h-12 bg-white left-0 bottom-4 flex items-center w-[calc(100%-16px)]">
+                      <h3 className="text-xl font-semibold">{category.name}</h3>
+                      <Button variant={'ghost'} size="sm">
+                        Shop
+                      </Button>
+                    </div> */}
+                    <div className="absolute bottom-4 left-0 shadow-[-1px_1px_7px_0px_rgba(0,_0,_0,_0.57)] w-[calc(100%-16px)]">
+                      <div className="relative bg-linear-to-r from-white to-white/95 pl-6 py-3 shadow-md">
+                        <div className="flex items-center gap-3 justify-between">
+                          <h3 className="text-xl text-gray-900">{category.name}</h3>
+                          <Button
+                            size="sm"
+                            variant="link"
+                            className="text-xl text-[#14B1F0]"
+                          >
+                            Shop
+                          </Button>
+                        </div>
+                        {/* Fold effect triangle at top */}
+                        <div
+                          className="absolute -top-3 left-0 w-0 h-0 border-l-[18px] border-l-transparent border-b-[12px] border-b-[#220F0F]"
+                          style={{ filter: "brightness(0.7)" }}
+                        />
+
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <Button onClick={scrollPrev} variant={'ghost'} className="absolute w-16 h-16 -left-16 top-1/2 -translate-y-1/2 hover:bg-transparent">
+            <Image src="/icons/chevron-left.svg" className="size-10" layout="fill" alt="Previous" />
+          </Button>
+          <Button onClick={scrollNext} variant={'ghost'} className="absolute w-16 h-16 -right-16 top-1/2 -translate-y-1/2 hover:bg-transparent">
+            <Image src="/icons/chevron-left.svg" className="size-10 rotate-180" layout="fill" alt="Next" />
+          </Button>
+        </Carousel>
+      </div>
+    </section>
+  )
+}
