@@ -15,12 +15,30 @@ datasource db {
 }
 
 model Product {
-  id          Int    @id @default(autoincrement())
-  name        String
-  price       Float
-  description String
-  category    String
-  image       String
-  rating      Float
-  count       Int
+  id            Int      @id @default(autoincrement())
+  name          String
+  price         Float
+  originalPrice Float?
+  discount      Int?
+  description   String?
+  image         String
+  rating        Float?   @default(0)
+  ratingCount   Int?     @default(0)
+  brand         String?
+  sold          Int?     @default(0)
+  available     Int?     @default(0)
+  badgeColor    String?
+  featured      Boolean? @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  image    String
+  products Product[]
 }

@@ -1,15 +1,12 @@
 import { BestDeals } from "@/components/best-deals"
 import { CategoryCarousel } from "@/components/category-carousel"
-import { Footer } from "@/components/footer"
-import { Header } from "@/components/header"
 import { HeroCarousel } from "@/components/hero-carousel"
 import { NewArrivals } from "@/components/new-arrivals"
 import { Separator } from "@/components/ui/separator"
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
+    <div className="min-h-screen">
       <main>
         <HeroCarousel />
         <CategoryCarousel />
@@ -17,7 +14,6 @@ export default function Home() {
         <NewArrivals />
         <BestDeals />
       </main>
-      <Footer />
     </div>
   )
 }

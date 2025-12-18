@@ -1,8 +1,31 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect, useState } from "react"
+
+interface Category {
+  id: number
+  name: string
+}
 
 export function Footer() {
+  const [categories, setCategories] = useState<Category[]>([])
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const response = await fetch('/api/products/categories')
+        const data = await response.json()
+        setCategories(data)
+      } catch (error) {
+        console.error('Failed to fetch categories:', error)
+      }
+    }
+    fetchCategories()
+  }, [])
+
   return (
     <footer className="bg-[#393939] text-white mt-12">
       <div className="container py-12 max-w-7xl mx-auto">
@@ -45,36 +68,15 @@ export function Footer() {
           <div className="space-y-4 col-span-2">
             <h3 className="text-[#00bcd4]">Trending</h3>
             <ul className="space-y-2 text-sm text-white/80">
-              <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
-                  Installments
-                </Button>
-              </li>
-              <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
-                  Electronics
-                </Button>
-              </li>
-              <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
-                  Grocery
-                </Button>
-              </li>
-              <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
-                  Health & Beauty
-                </Button>
-              </li>
-              <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
-                  Home Appliances
-                </Button>
-              </li>
-              <li>
-                <Button variant="link" className="h-auto p-0 text-white/80">
-                  Mobile Accessories
-                </Button>
-              </li>
+              {categories.slice(0, 6).map((category) => (
+                <li key={category.id}>
+                  <Button variant="link" className="h-auto p-0 text-white/80" asChild>
+                    <Link href={`/category/${encodeURIComponent(category.name)}`}>
+                      {category.name}
+                    </Link>
+                  </Button>
+                </li>
+              ))}
             </ul>
           </div>
 

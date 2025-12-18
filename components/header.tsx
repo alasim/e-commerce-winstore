@@ -1,9 +1,12 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Menu, Search } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
 
 import {
@@ -13,9 +16,29 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 
+interface Category {
+  id: number
+  name: string
+}
+
 export function Header() {
+  const [categories, setCategories] = useState<Category[]>([])
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const response = await fetch('/api/products/categories')
+        const data = await response.json()
+        setCategories(data)
+      } catch (error) {
+        console.error('Failed to fetch categories:', error)
+      }
+    }
+    fetchCategories()
+  }, [])
+
   return (
-    <header className="text-white">
+    <header className="text-white sticky top-0 z-50">
       {/* Top Bar */}
       <div className="bg-[#03484D]">
         <div className="container max-w-7xl mx-auto h-[68px] flex items-center justify-between py-2 text-sm">
@@ -24,9 +47,9 @@ export function Header() {
               <div className="flex items-center gap-10">
 
                 {/* Logo */}
-                <div className="flex items-center">
+                <Link href="/" className="flex items-center">
                   <Image src="/logo.svg" alt="Logo" width={132} height={48} />
-                </div>
+                </Link>
 
                 {/* Search Bar */}
                 <div className="flex flex-1 items-center w-[535px] h-10">
@@ -36,9 +59,9 @@ export function Header() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All categories</SelectItem>
-                      <SelectItem value="electronics">Electronics</SelectItem>
-                      <SelectItem value="fashion">Fashion</SelectItem>
-                      <SelectItem value="appliances">Appliances</SelectItem>
+                      {categories.map((category) => (
+                        <SelectItem key={category.id} value={category.name}>{category.name}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <div className="relative flex-1 h-full bg-white">
@@ -115,10 +138,13 @@ export function Header() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-[180px] h-full! bg-white text-[#ABA3A3]">
-                  <DropdownMenuItem>All categories</DropdownMenuItem>
-                  <DropdownMenuItem>Electronics</DropdownMenuItem>
-                  <DropdownMenuItem>Fashion</DropdownMenuItem>
-                  <DropdownMenuItem>Appliances</DropdownMenuItem>
+                  {categories.map((category) => (
+                    <DropdownMenuItem key={category.id} asChild>
+                      <Link href={`/category/${encodeURIComponent(category.name)}`} className="w-full cursor-pointer">
+                        {category.name}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
                 </DropdownMenuContent>
               </DropdownMenu>
               <Button variant="ghost" size="sm" className="text-white hover:text-cyan-400 hover:bg-white/10">

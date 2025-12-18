@@ -1,3 +1,5 @@
+import { Footer } from "@/components/footer"
+import { Header } from "@/components/header"
 import { Analytics } from "@vercel/analytics/next"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
@@ -54,7 +56,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${centuryGothic.variable} font-sans antialiased`}>
+        <Header />
         {children}
+        <Footer />
         <Analytics />
       </body>
     </html>

@@ -3,7 +3,7 @@
 import { ChevronRight, Heart, Minus, Plus, Share2, ShoppingCart, Star } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
+import { use, useEffect, useState } from "react"
 
 import { Footer } from "@/components/footer"
 import { Header } from "@/components/header"
@@ -11,53 +11,133 @@ import { NewArrivals } from "@/components/new-arrivals"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-// Mock product data
-const product = {
-    id: 1,
-    name: "Samsung 40N5300 Smart TV",
-    price: 56000,
-    originalPrice: 60000,
-    rating: 4.5,
-    reviews: 128,
-    sku: "SAM-40N5300",
-    brand: "Samsung",
-    category: "TV & Video",
-    availability: "In Stock",
-    description: "Experience entertainment like never before with the Samsung 40N5300 Smart TV. Featuring a crisp 40-inch LED display, this TV delivers vibrant colors and sharp details. With built-in Wi-Fi and smart features, you can stream your favorite shows and movies with ease.",
-    images: [
-        "/images/products/product-9.png",
-        "/images/products/product-1.jpg",
-        "/images/products/product-2.png",
-        "/images/products/product-3.png",
-    ],
-    features: [
-        "Full HD Resolution (1920 x 1080)",
-        "Smart TV with Built-in Wi-Fi",
-        "2 HDMI Ports, 1 USB Port",
-        "Wide Color Enhancer",
-        "Dolby Digital Plus Audio",
-    ],
+interface Product {
+    id: number
+    name: string
+    price: number
+    originalPrice: number | null
+    rating: number | null
+    ratingCount: number | null
+    brand: string | null
+    category: string
+    description: string | null
+    image: string
+    sold: number | null
+    available: number | null
+    sku?: string
+    images?: string[]
+    features?: string[]
 }
 
-export default function ProductPage() {
+export default function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = use(params)
+    const [product, setProduct] = useState<Product | null>(null)
+    const [isLoading, setIsLoading] = useState(true)
     const [quantity, setQuantity] = useState(1)
     const [selectedImage, setSelectedImage] = useState(0)
+
+    useEffect(() => {
+        async function fetchProduct() {
+            try {
+                const response = await fetch(`/api/products/${slug}`)
+                if (!response.ok) {
+                    throw new Error('Product not found')
+                }
+                const data = await response.json()
+                // Ensure images array exists, fallback to single image if not
+                if (!data.images) {
+                    data.images = [data.image]
+                }
+                // Ensure features array exists
+                if (!data.features) {
+                    data.features = [
+                        "High quality product",
+                        "Durable and long-lasting",
+                        "Best value for money"
+                    ]
+                }
+                setProduct(data)
+            } catch (error) {
+                console.error('Failed to fetch product:', error)
+                setProduct(null)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+        fetchProduct()
+    }, [slug])
 
     const incrementQuantity = () => setQuantity((prev) => prev + 1)
     const decrementQuantity = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1))
 
+    if (isLoading) {
+        return (
+            <div className="min-h-screen bg-white">
+                <Header />
+                <main className="container max-w-7xl mx-auto px-4 py-8">
+                    <div className="flex gap-2 mb-8">
+                        <Skeleton className="h-4 w-12" />
+                        <Skeleton className="h-4 w-4" />
+                        <Skeleton className="h-4 w-24" />
+                        <Skeleton className="h-4 w-4" />
+                        <Skeleton className="h-4 w-32" />
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                        <div className="space-y-4">
+                            <Skeleton className="aspect-square w-full rounded-lg" />
+                            <div className="grid grid-cols-4 gap-4">
+                                {Array.from({ length: 4 }).map((_, i) => (
+                                    <Skeleton key={i} className="aspect-square w-full rounded-lg" />
+                                ))}
+                            </div>
+                        </div>
+                        <div className="space-y-6">
+                            <Skeleton className="h-10 w-3/4" />
+                            <Skeleton className="h-6 w-1/2" />
+                            <Skeleton className="h-8 w-1/3" />
+                            <Separator />
+                            <Skeleton className="h-32 w-full" />
+                            <div className="flex gap-4">
+                                <Skeleton className="h-12 w-32" />
+                                <Skeleton className="h-12 flex-1" />
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <Footer />
+            </div>
+        )
+    }
+
+    if (!product) {
+        return (
+            <div className="min-h-screen bg-white">
+                <main className="container max-w-7xl mx-auto px-4 py-8 flex items-center justify-center min-h-[50vh]">
+                    <div className="text-center">
+                        <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h1>
+                        <p className="text-gray-600 mb-8">The product you are looking for does not exist.</p>
+                        <Button asChild>
+                            <Link href="/">Back to Home</Link>
+                        </Button>
+                    </div>
+                </main>
+                <Footer />
+            </div>
+        )
+    }
+
     return (
         <div className="min-h-screen bg-white">
-            <Header />
 
             <main className="container max-w-7xl mx-auto px-4 py-8">
                 {/* Breadcrumb */}
                 <div className="flex items-center text-sm text-gray-500 mb-8">
                     <Link href="/" className="hover:text-[#00bcd4]">Home</Link>
                     <ChevronRight className="h-4 w-4 mx-2" />
-                    <Link href="/category/electronics" className="hover:text-[#00bcd4]">Electronics</Link>
+                    <Link href={`/category/${product.category}`} className="hover:text-[#00bcd4]">{product.category}</Link>
                     <ChevronRight className="h-4 w-4 mx-2" />
                     <span className="text-gray-900 font-medium truncate">{product.name}</span>
                 </div>
@@ -67,33 +147,37 @@ export default function ProductPage() {
                     <div className="space-y-4">
                         <div className="aspect-square relative border rounded-lg overflow-hidden bg-white flex items-center justify-center">
                             <Image
-                                src={product.images[selectedImage] || "/placeholder.svg"}
+                                src={product.images?.[selectedImage] || product.image || "/placeholder.svg"}
                                 alt={product.name}
                                 fill
                                 className="object-contain p-8"
                                 priority
                             />
-                            <div className="absolute top-4 left-4">
-                                <Badge className="bg-[#ef5350] hover:bg-[#ef5350]">Sale</Badge>
+                            {product.originalPrice && product.price < product.originalPrice && (
+                                <div className="absolute top-4 left-4">
+                                    <Badge className="bg-[#ef5350] hover:bg-[#ef5350]">Sale</Badge>
+                                </div>
+                            )}
+                        </div>
+                        {product.images && product.images.length > 1 && (
+                            <div className="grid grid-cols-4 gap-4">
+                                {product.images.map((image, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setSelectedImage(index)}
+                                        className={`aspect-square relative border rounded-lg overflow-hidden bg-white flex items-center justify-center transition-all ${selectedImage === index ? "ring-2 ring-[#00bcd4] border-transparent" : "hover:border-[#00bcd4]"
+                                            }`}
+                                    >
+                                        <Image
+                                            src={image || "/placeholder.svg"}
+                                            alt={`${product.name} thumbnail ${index + 1}`}
+                                            fill
+                                            className="object-contain p-2"
+                                        />
+                                    </button>
+                                ))}
                             </div>
-                        </div>
-                        <div className="grid grid-cols-4 gap-4">
-                            {product.images.map((image, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => setSelectedImage(index)}
-                                    className={`aspect-square relative border rounded-lg overflow-hidden bg-white flex items-center justify-center transition-all ${selectedImage === index ? "ring-2 ring-[#00bcd4] border-transparent" : "hover:border-[#00bcd4]"
-                                        }`}
-                                >
-                                    <Image
-                                        src={image || "/placeholder.svg"}
-                                        alt={`${product.name} thumbnail ${index + 1}`}
-                                        fill
-                                        className="object-contain p-2"
-                                    />
-                                </button>
-                            ))}
-                        </div>
+                        )}
                     </div>
 
                     {/* Product Details */}
@@ -105,35 +189,41 @@ export default function ProductPage() {
                                     {[...Array(5)].map((_, i) => (
                                         <Star
                                             key={i}
-                                            className={`h-4 w-4 ${i < Math.floor(product.rating) ? "fill-current" : "text-gray-300"}`}
+                                            className={`h-4 w-4 ${i < Math.floor(product.rating || 0) ? "fill-current" : "text-gray-300"}`}
                                         />
                                     ))}
-                                    <span className="text-gray-600 text-sm ml-2">({product.reviews} reviews)</span>
+                                    <span className="text-gray-600 text-sm ml-2">({product.ratingCount || 0} reviews)</span>
                                 </div>
                                 <Separator orientation="vertical" className="h-4" />
-                                <span className="text-[#00bcd4] text-sm font-medium">{product.availability}</span>
+                                <span className="text-[#00bcd4] text-sm font-medium">{product.available ? "In Stock" : "Out of Stock"}</span>
                             </div>
                             <div className="flex items-baseline gap-3">
                                 <span className="text-3xl font-bold text-[#00bcd4]">Rs.{product.price.toLocaleString()}</span>
-                                <span className="text-lg text-gray-500 line-through">Rs.{product.originalPrice.toLocaleString()}</span>
-                                <Badge variant="outline" className="text-[#ef5350] border-[#ef5350]">
-                                    {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
-                                </Badge>
+                                {product.originalPrice && (
+                                    <>
+                                        <span className="text-lg text-gray-500 line-through">Rs.{product.originalPrice.toLocaleString()}</span>
+                                        <Badge variant="outline" className="text-[#ef5350] border-[#ef5350]">
+                                            {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+                                        </Badge>
+                                    </>
+                                )}
                             </div>
                         </div>
 
                         <Separator />
 
                         <div className="space-y-4">
-                            <p className="text-gray-600 leading-relaxed">{product.description}</p>
-                            <ul className="space-y-2">
-                                {product.features.map((feature, index) => (
-                                    <li key={index} className="flex items-center text-sm text-gray-600">
-                                        <div className="h-1.5 w-1.5 rounded-full bg-[#00bcd4] mr-2" />
-                                        {feature}
-                                    </li>
-                                ))}
-                            </ul>
+                            <p className="text-gray-600 leading-relaxed">{product.description || "No description available."}</p>
+                            {product.features && (
+                                <ul className="space-y-2">
+                                    {product.features.map((feature, index) => (
+                                        <li key={index} className="flex items-center text-sm text-gray-600">
+                                            <div className="h-1.5 w-1.5 rounded-full bg-[#00bcd4] mr-2" />
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
 
                         <div className="space-y-4 pt-4">
@@ -170,16 +260,18 @@ export default function ProductPage() {
                         <div className="pt-6 text-sm text-gray-500 space-y-2">
                             <div className="flex gap-2">
                                 <span className="font-medium text-gray-900">SKU:</span>
-                                <span>{product.sku}</span>
+                                <span>{product.sku || `PROD-${product.id}`}</span>
                             </div>
                             <div className="flex gap-2">
                                 <span className="font-medium text-gray-900">Category:</span>
-                                <Link href="#" className="text-[#00bcd4] hover:underline">{product.category}</Link>
+                                <Link href={`/category/${product.category}`} className="text-[#00bcd4] hover:underline">{product.category}</Link>
                             </div>
-                            <div className="flex gap-2">
-                                <span className="font-medium text-gray-900">Brand:</span>
-                                <Link href="#" className="text-[#00bcd4] hover:underline">{product.brand}</Link>
-                            </div>
+                            {product.brand && (
+                                <div className="flex gap-2">
+                                    <span className="font-medium text-gray-900">Brand:</span>
+                                    <Link href="#" className="text-[#00bcd4] hover:underline">{product.brand}</Link>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -198,7 +290,7 @@ export default function ProductPage() {
                                 value="reviews"
                                 className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#00bcd4] data-[state=active]:text-[#00bcd4] px-8 py-3 text-base"
                             >
-                                Reviews ({product.reviews})
+                                Reviews ({product.ratingCount || 0})
                             </TabsTrigger>
                             <TabsTrigger
                                 value="shipping"
@@ -210,10 +302,7 @@ export default function ProductPage() {
                         <TabsContent value="description" className="pt-8">
                             <div className="prose max-w-none text-gray-600">
                                 <p>
-                                    Elevate your home entertainment with the Samsung 40N5300 Smart TV. This 40-inch Full HD LED TV brings your favorite movies, TV shows, and games to life with stunning clarity and vibrant colors. The Wide Color Enhancer technology improves image quality and uncovers hidden details, while the Clean View feature reduces noise and interference for a crystal-clear viewing experience.
-                                </p>
-                                <p className="mt-4">
-                                    With built-in Wi-Fi and Samsung's Smart Hub, you can easily access a world of content, including streaming services like Netflix, YouTube, and Amazon Prime Video. The intuitive interface makes navigation a breeze, and the included remote control puts everything at your fingertips. Connect your external devices via the two HDMI ports and one USB port to enjoy your personal media collection on the big screen.
+                                    {product.description || "No detailed description available."}
                                 </p>
                             </div>
                         </TabsContent>
@@ -235,7 +324,7 @@ export default function ProductPage() {
                 </div>
             </main>
 
-            <Footer />
+
         </div>
     )
 }
