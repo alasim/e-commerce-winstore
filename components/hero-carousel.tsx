@@ -73,12 +73,12 @@ export function HeroCarousel() {
                   <div className="container max-w-7xl mx-auto relative px-4">
                     <div className="">
                       <h1 className="text-3xl lg:text-6xl text-balance leading-tight">
-                        Shop <span className="text-cyan-400">Computer</span>
+                        Shop <span className="text-primary">Computer</span>
                       </h1>
-                      <h2 className="text-2xl lg:text-5xl text-cyan-400 text-balance font-medium">& experience</h2>
+                      <h2 className="text-2xl lg:text-5xl text-primary text-balance font-medium">& experience</h2>
                     </div>
                     <p className="text-gray-700 max-w-[250px] lg:max-w-sm text-xs lg:text-sm leading-relaxed pb-4 mt-2">{slide.description}</p>
-                    <Button size="lg" className="bg-cyan-400 hover:bg-[#00acc1] text-white font-semibold px-6 lg:px-8 h-10 lg:h-11 text-sm lg:text-base">
+                    <Button size="lg" className="bg-primary hover:bg-[#00acc1] text-white font-semibold px-6 lg:px-8 h-10 lg:h-11 text-sm lg:text-base">
                       View More
                     </Button>
 

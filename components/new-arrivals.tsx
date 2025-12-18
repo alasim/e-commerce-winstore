@@ -75,7 +75,7 @@ export function NewArrivals() {
       <div className="container max-w-7xl mx-auto">
         <div className="mb-8">
           <h2 className="text-3xl whitespace-nowrap">
-            <span className="text-cyan-400">New</span> Arrivals
+            <span className="text-primary">New</span> Arrivals
           </h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">

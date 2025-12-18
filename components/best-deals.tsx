@@ -173,7 +173,7 @@ export function BestDeals() {
       <div className="container max-w-7xl mx-auto">
         <div className="mb-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-8">
           <h2 className="text-3xl whitespace-nowrap">
-            <span className="text-cyan-400">Best</span> Deals
+            <span className="text-primary">Best</span> Deals
           </h2>
 
           <div className="flex items-center gap-4 lg:gap-8 justify-between w-full lg:w-auto">
